@@ -19,7 +19,7 @@ def parser():
 	app = SmaliscaApp()
 	app.setup()
 
-	location = '.'
+	location = 'smali_analysis'
 
 	suffix = 'smali'
 

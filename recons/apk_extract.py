@@ -58,7 +58,9 @@ def apk_info(apk_name):
 
     print(Fore.YELLOW + "\n--------------------------------------------------")
     print(Fore.GREEN + "[INFO] " + Fore.BLUE + "EXTRACTING SOURCE")
-    namesplit = apk_name.split('.')[0]
+
+    apk_dir, apk_name = os.path.split(apk_name)
+    namesplit = apk_name.rsplit('.', 1)[0]
     # noinspection PyPep8
     javasrc = 'java -jar tools/cfr.jar  ' + namesplit + '-enjarify.jar' + ' --outputdir' + ' Source-Java' + ' 1> /dev/null 2> /dev/null'
     os.system(javasrc)
