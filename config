@@ -1,5 +1,5 @@
 [config-data]
-vt_api_key = 
-dependencies_status = incomplete
+vt_api_key = d668f1614628375c57967d54b77f3e7ee91533269ec49cf43a559647e1f5dbab
+dependencies_status = complete
 emulator_path = #optional
 

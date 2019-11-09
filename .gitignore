@@ -3,6 +3,7 @@
 *.pyc
 .cache/
 .DS_Store
+*.jar
 
 #Other generated files
 smali_copy/
@@ -12,5 +13,6 @@ Extracts/
 apk/
 .idea/
 smali_analysis/*
+Bytecode/
 Manifest.xml
 settings.json

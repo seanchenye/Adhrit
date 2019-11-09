@@ -50,7 +50,7 @@ def man_scanner():
                    }
 
 
-    xmlfile = 'Manifest.xml'
+    xmlfile = 'AndroidManifest.xml'
     if os.path.exists(xmlfile):
         print(Fore.BLUE + "\n\t[+] " + Fore.YELLOW + "Manifest found. Starting analysis\n")
         tree = Et.parse(xmlfile)
