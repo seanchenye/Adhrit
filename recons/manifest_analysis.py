@@ -50,7 +50,7 @@ def man_scanner():
                    }
 
 
-    xmlfile = 'AndroidManifest.xml'
+    xmlfile = 'Manifest.xml'
     if os.path.exists(xmlfile):
         print(Fore.BLUE + "\n\t[+] " + Fore.YELLOW + "Manifest found. Starting analysis\n")
         tree = Et.parse(xmlfile)
@@ -62,38 +62,42 @@ def man_scanner():
         permissions = root.findall("uses-permission")
         if len(permissions) <= 1:
             print(Fore.RED + "\n\t\t[-] " + Fore.YELLOW + "No critical permissions found. Listing all permissions.")
-            for perm in permissions:
-                for att in perm.attrib:
-                    c2 += 1
-                    print(Fore.BLUE + "\n\t\t\t " + "[>] " + Fore.YELLOW + perm.attrib[att])
+            # for perm in permissions:
+            #     for att in perm.attrib:
+            #         c2 += 1
+            #         print(Fore.BLUE + "\n\t\t\t " + "[>] " + Fore.YELLOW + perm.attrib[att])
 
         for perm in permissions:
             for att in perm.attrib:
-                for permname, permvalue in perm_severe.items():
-                    if perm.attrib[att] == permname:
-                        c1 += 1
-                        print(Fore.BLUE + "\t\t " + "[>] " + Fore.YELLOW + permvalue)
+                if att in perm_severe:
+                    c1 += 1
+                    permvalue = perm_severe[att]
+                    print(Fore.BLUE + "\t\t " + "[>] " + Fore.YELLOW + permvalue)
 
         backup_status = root.findall("application")
-        for acts in backup_status:
-            for bckp in acts.attrib:
-                if bckp == "{http://schemas.android.com/apk/res/android}allowBackup":
-                    if acts.attrib[bckp] == "true":
-                        print(Fore.RED + "\n\n\t[+] " + Fore.YELLOW + "The application allows backup.")
-                        print(Fore.LIGHTRED_EX + "\n\t\tData/files maybe left in the device even after the application is uninstalled.")
-                    else:
-                        print(Fore.BLUE + "\n\n\t[-] " + Fore.YELLOW + "Backup disabled.")
-                        print(Fore.YELLOW + "\n\t\tThe application doesn't leave behind data/files after uninstallation.")
 
-        for debugattrib in backup_status:
-            for dbgstatus in debugattrib.attrib:
-                if dbgstatus == "{http://schemas.android.com/apk/res/android}debuggable":
-                    if debugattrib.attrib[dbgstatus] == "true":
-                        print(Fore.RED + "\n\n\t[+] " + Fore.YELLOW + "The application is debuggable.")
-                        print(Fore.LIGHTRED_EX + "\n\t\tSensitive data can be logged while the application runs.")
-                    else:
-                        print(Fore.BLUE + "\n\n\t[-] " + Fore.YELLOW + "Debugging disabled.")
-                        print(Fore.YELLOW + "\n\t\tThe application doesn't allow logging data from the application.")
+        if backup_status:
+            for acts in backup_status:
+                for bckp in acts.attrib:
+                    if bckp == "{http://schemas.android.com/apk/res/android}allowBackup":
+                        if acts.attrib[bckp] == "true":
+                            print(Fore.RED + "\n\n\t[+] " + Fore.YELLOW + "The application allows backup.")
+                            print(Fore.LIGHTRED_EX + "\n\t\tData/files maybe left in the device even after the application is uninstalled.")
+                        else:
+                            print(Fore.BLUE + "\n\n\t[-] " + Fore.YELLOW + "Backup disabled.")
+                            print(Fore.YELLOW + "\n\t\tThe application doesn't leave behind data/files after uninstallation.")
+
+            for debugattrib in backup_status:
+                for dbgstatus in debugattrib.attrib:
+                    if dbgstatus == "{http://schemas.android.com/apk/res/android}debuggable":
+                        if debugattrib.attrib[dbgstatus] == "true":
+                            print(Fore.RED + "\n\n\t[+] " + Fore.YELLOW + "The application is debuggable.")
+                            print(Fore.LIGHTRED_EX + "\n\t\tSensitive data can be logged while the application runs.")
+                        else:
+                            print(Fore.BLUE + "\n\n\t[-] " + Fore.YELLOW + "Debugging disabled.")
+                            print(Fore.YELLOW + "\n\t\tThe application doesn't allow logging data from the application.")
+        else:
+            print("The app hassn't specified application-related permissions")
 
 
          # List of critical permissions
