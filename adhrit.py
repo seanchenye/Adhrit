@@ -176,7 +176,7 @@ def main():
         adhrit.vappsearch(args.a)
         adhrit.smaliextractor(args.a)
         adhrit.smali_inj(args.a)
-        adhrit.bytecodeanalyzer()
+        #adhrit.bytecodeanalyzer()
 
     elif args.x:
         adhrit.cleanproject(args.x)

@@ -229,7 +229,7 @@ def man_scanner():
                                                     main_act_strip = intentvalue.split('.')
                                                     main_act_len = len(main_act_strip)
                                                     main_act_name = main_act_strip[main_act_len - 1]
-                                                c3 += 1
+                                                #c3 += 1
                                                 print(Fore.RED + "\n\t\t[!] " + Fore.YELLOW + "ACTION: " + Fore.BLUE + str(value))
                                             else:
                                                 print(Fore.RED + "\n\t\t[!] " + Fore.YELLOW + "ACTION: " + Fore.BLUE + str(value))
